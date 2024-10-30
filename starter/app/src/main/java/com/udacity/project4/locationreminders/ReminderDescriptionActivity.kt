@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.udacity.project4.R
 import com.udacity.project4.databinding.ActivityReminderDescriptionBinding
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+import kotlinx.android.synthetic.main.activity_reminder_description.*
 
 /**
  * Activity that displays the reminder details after the user clicks on the notification
@@ -33,5 +34,11 @@ class ReminderDescriptionActivity : AppCompatActivity() {
             R.layout.activity_reminder_description
         )
 //        TODO: Add the implementation of the reminder details
+        val reminderData = intent.extras?.get(EXTRA_ReminderDataItem) as ReminderDataItem
+
+        title_textview.text = title_textview.text.toString() + reminderData.title
+        description_textView.text = description_textView.text.toString() + reminderData.description
+        location_textView.text = location_textView.text.toString() + reminderData.location
+        coordinates_textView.text = "Lat: " + reminderData.latitude +", Long: " + reminderData.longitude
     }
 }

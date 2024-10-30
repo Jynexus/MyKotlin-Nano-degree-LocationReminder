@@ -19,15 +19,44 @@
         <!--TODO: add the design of the reminder details-->
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Reminder Details"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/margin_normal"
             android:textSize="@dimen/text_size_large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Title: "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/description_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="@dimen/text_size_large"
+            android:text="Description: "
+            app:layout_constraintStart_toStartOf="@+id/title_textview"
+            app:layout_constraintTop_toBottomOf="@+id/title_textview" />
+
+        <TextView
+            android:id="@+id/location_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="@dimen/text_size_large"
+            android:text="Location: "
+            app:layout_constraintStart_toStartOf="@+id/description_textView"
+            app:layout_constraintTop_toBottomOf="@+id/description_textView" />
+
+        <TextView
+            android:id="@+id/coordinates_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintStart_toStartOf="@+id/location_textView"
+            app:layout_constraintTop_toBottomOf="@+id/location_textView" />
 
     </LinearLayout>
 </layout>

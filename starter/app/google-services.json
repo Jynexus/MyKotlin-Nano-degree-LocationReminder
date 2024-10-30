@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "181316089240",
+    "project_id": "mmabrouk-nano-p4",
+    "storage_bucket": "mmabrouk-nano-p4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181316089240:android:88abbf6c5977ddc81067ed",
+        "android_client_info": {
+          "package_name": "com.udacity.project4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181316089240-b7rbf1lasbdghs7rssnp659thl3d9a8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.udacity.project4",
+            "certificate_hash": "ec2921c850408bb815bc80993aeb82312b80297a"
+          }
+        },
+        {
+          "client_id": "181316089240-27b3gvopd21l0o83sg2o9b32ge55nq0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3xvaIsDJu2073lJdyv_RkQnkyou0uwgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181316089240-27b3gvopd21l0o83sg2o9b32ge55nq0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

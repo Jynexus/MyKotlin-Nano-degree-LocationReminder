@@ -21,6 +21,7 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
     val latitude = MutableLiveData<Double>()
     val longitude = MutableLiveData<Double>()
 
+    var newToAdd : ReminderDataItem? = null
     /**
      * Clear the live data objects to start fresh next time the view model gets called
      */

@@ -41,15 +41,21 @@ class RemindersListViewModel(
                         )
                     })
                     remindersList.value = dataList
+                    showLoading.value = false
+
+
                 }
-                is Result.Error ->
+                is Result.Error -> {
                     showSnackBar.value = result.message
+                    showLoading.value = false
+                }
             }
 
             //check if no data has to be shown
             invalidateShowNoData()
         }
     }
+
 
     /**
      * Inform the user that there's not any data if the remindersList is empty

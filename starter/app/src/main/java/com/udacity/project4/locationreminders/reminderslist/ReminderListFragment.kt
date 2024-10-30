@@ -1,9 +1,28 @@
 package com.udacity.project4.locationreminders.reminderslist
 
+import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.annotation.TargetApi
+import android.content.ContentValues.TAG
+import android.content.Intent
+import android.content.IntentSender
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.*
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.udacity.project4.BuildConfig
 import com.udacity.project4.R
+import com.udacity.project4.authentication.AuthenticationFragmentDirections
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentRemindersBinding
@@ -13,6 +32,7 @@ import com.udacity.project4.utils.setup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReminderListFragment : BaseFragment() {
+
     //use Koin to retrieve the ViewModel instance
     override val _viewModel: RemindersListViewModel by viewModel()
     private lateinit var binding: FragmentRemindersBinding
@@ -71,7 +91,12 @@ class ReminderListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> {
-//                TODO: add the logout implementation
+                FirebaseAuth.getInstance().signOut()
+                _viewModel.navigationCommand.postValue(
+                    NavigationCommand.To(
+                        ReminderListFragmentDirections.actionReminderListFragmentToAuthenticationFragment()
+                    )
+                )
             }
         }
         return super.onOptionsItemSelected(item)
@@ -83,5 +108,5 @@ class ReminderListFragment : BaseFragment() {
 //        display logout as menu item
         inflater.inflate(R.menu.main_menu, menu)
     }
-
 }
+

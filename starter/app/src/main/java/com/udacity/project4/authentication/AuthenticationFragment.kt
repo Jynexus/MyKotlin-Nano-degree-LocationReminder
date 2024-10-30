@@ -1,36 +1,55 @@
 package com.udacity.project4.authentication
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.udacity.project4.R
-import com.udacity.project4.locationreminders.RemindersActivity
+import com.udacity.project4.base.BaseFragment
+import com.udacity.project4.base.NavigationCommand
 
-/**
- * This class should be the starting point of the app, It asks the users to sign in / register, and redirects the
- * signed in users to the RemindersActivity.
- */
-class AuthenticationActivity : AppCompatActivity() {
 
-    var SIGN_IN_REQUEST_CODE = -1
+class AuthenticationFragment : BaseFragment() {
+
+    override val _viewModel: AuthenticationViewModel = AuthenticationViewModel(Application())
+    var SIGN_IN_REQUEST_CODE = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_authentication)
-//         TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
-
-        findViewById<Button>(R.id.button_Login).setOnClickListener { launchSignInFlow() }
-
-//          TODO: If the user was authenticated, send him to RemindersActivity
-
-
+        if(FirebaseAuth.getInstance().currentUser?.displayName != null){
+            Toast.makeText(activity,
+                "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!",
+                Toast.LENGTH_SHORT).show()
+            _viewModel.navigationCommand.value =
+                NavigationCommand.To(
+                    AuthenticationFragmentDirections.actionAuthenticationFragmentToReminderListFragment()
+            )
+        }
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_authentication, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.button_Login).setOnClickListener { launchSignInFlow() }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -38,14 +57,19 @@ class AuthenticationActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
                 // User successfully signed in
-                Toast.makeText(applicationContext,"Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!",Toast.LENGTH_SHORT)
-                val intent = Intent(this, RemindersActivity::class.java)
-                startActivity(intent)
+                Toast.makeText(activity,"Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!",
+                    Toast.LENGTH_SHORT).show()
+                _viewModel.navigationCommand.postValue(
+                    NavigationCommand.To(
+                        AuthenticationFragmentDirections.actionAuthenticationFragmentToReminderListFragment()
+                    )
+                )
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
-                Toast.makeText(applicationContext, "Sign in unsuccessful ${response?.error?.errorCode}",Toast.LENGTH_LONG)
+                Toast.makeText(activity, "Sign in unsuccessful ${response?.error?.errorCode}",
+                    Toast.LENGTH_LONG).show()
             }
         }
     }
